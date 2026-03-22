@@ -2,6 +2,7 @@ import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import Alert from "../components/alert";
 
+
 const Contact = () => {
     const [formData, setFormData] = useState({
         name: "",
@@ -35,7 +36,7 @@ const Contact = () => {
         e.preventDefault();
 
         setIsLoading(true);
-
+        console.log(formData)
         emailjs
             .send(SERVICE_ID, TEMPLATE_ID, formData, PUBLIC_KEY)
             .then(() => {
