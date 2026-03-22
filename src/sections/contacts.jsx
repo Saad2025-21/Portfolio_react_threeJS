@@ -1,21 +1,27 @@
 import { useState } from "react";
-// import emailjs from "@emailjs/browser";
+import emailjs from "@emailjs/browser";
 import Alert from "../components/alert";
 
 const Contact = () => {
-    const [formData, setformData] = useState({
+    const [formData, setFormData] = useState({
         name: "",
         email: "",
         message: "",
     });
-    const [isLoading, setIsLoading] = useState();
-    const [showAlert, setShowAlert] = useState();
-    const [alertType, setAlertType] = useState();
-    const [alertMessage, setAlertMessage] = useState();
+    const [isLoading, setIsLoading] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertType, setAlertType] = useState("");
+    const [alertMessage, setAlertMessage] = useState("");
+
+    // Replace these with your EmailJS credentials
+    const SERVICE_ID = process.env.SERVICE_ID;
+    const TEMPLATE_ID = process.env.TEMPLATE_ID;
+    const PUBLIC_KEY = process.env.PUBLIC_KEY;
 
     const handleChange = (e) => {
-        setformData({ ...formData, [e.target.name]: e.target.value })
-    }
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
     const showAlertMessage = (type, message) => {
         setAlertType(type);
         setAlertMessage(message);
@@ -24,11 +30,26 @@ const Contact = () => {
             setShowAlert(false);
         }, 5000);
     };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
 
-    }
+        setIsLoading(true);
+
+        emailjs
+            .send(SERVICE_ID, TEMPLATE_ID, formData, PUBLIC_KEY)
+            .then(() => {
+                showAlertMessage("success", "Message sent successfully!");
+                setFormData({ name: "", email: "", message: "" }); // Reset form
+            })
+            .catch(() => {
+                showAlertMessage("error", "Failed to send message. Please try again.");
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
+    };
+
     return (
         <section className="relative flex items-center c-space section-spacing  " id="contact">
 
