@@ -8,7 +8,7 @@ const Home = () => {
       <HeroText />
        <Astro/> 
        <Bg/>
-       <div className="h-[3px] w-[10px] absolute top-[2%] left-[8%] rounded-sm bg-[#e7d7b1] view sm:animate-design max-sm:animate-ln"></div>
+       <div className="h-0.75 w-2.5 absolute top-[2%] left-[8%] rounded-sm bg-[#e7d7b1] view sm:animate-design max-sm:animate-ln"></div>
     </section>
   );
 };
