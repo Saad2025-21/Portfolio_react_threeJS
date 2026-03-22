@@ -1,6 +1,6 @@
 import { useState } from "react";
 // import emailjs from "@emailjs/browser";
-import Alert from "../components/Alert";
+import Alert from "../components/alert";
 
 const Contact = () => {
     const [formData, setformData] = useState({

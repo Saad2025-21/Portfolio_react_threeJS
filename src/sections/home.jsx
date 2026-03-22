@@ -1,4 +1,4 @@
-import HeroText from "../components/Herotxt.jsx";
+import HeroText from "../components/herotxt.jsx";
 import Astro from "../components/astronaut.jsx";
 import Bg from "../components/bg.jsx";
 
