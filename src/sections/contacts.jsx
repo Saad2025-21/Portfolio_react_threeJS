@@ -14,10 +14,10 @@ const Contact = () => {
     const [alertType, setAlertType] = useState("");
     const [alertMessage, setAlertMessage] = useState("");
 
-    // Replace these with your EmailJS credentials
-    const SERVICE_ID = process.env.SERVICE_ID;
-    const TEMPLATE_ID = process.env.TEMPLATE_ID;
-    const PUBLIC_KEY = process.env.PUBLIC_KEY;
+    
+    const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+    const TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+    const PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
