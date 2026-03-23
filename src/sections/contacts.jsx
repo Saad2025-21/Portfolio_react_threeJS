@@ -14,10 +14,8 @@ const Contact = () => {
     const [alertType, setAlertType] = useState("");
     const [alertMessage, setAlertMessage] = useState("");
 
-    
-    const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
-    const TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
-    const PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+
+
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,23 +30,39 @@ const Contact = () => {
         }, 5000);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         setIsLoading(true);
-        console.log(formData)
-        emailjs
-            .send(SERVICE_ID, TEMPLATE_ID, formData, PUBLIC_KEY)
-            .then(() => {
-                showAlertMessage("success", "Message sent successfully!");
-                setFormData({ name: "", email: "", message: "" }); // Reset form
+
+        try {
+            console.log("Form submitted", formData)
+
+            await emailjs.send(
+                "service_hbirq3b",
+                "template_php2h62", {
+                form_name: formData.name,
+                to_name: "Saad",
+                form_email: formData.email,
+                to_email: "oworks2006@gmail.com",
+                message: formData.message,
+            }, "nl7cdFEczD9VgJPlB"
+            )
+
+            setFormData({
+                name: "",
+                email: "",
+                message: "",
             })
-            .catch(() => {
-                showAlertMessage("error", "Failed to send message. Please try again.");
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
+            setIsLoading(false)
+            showAlertMessage("success","Email sent successfully")
+        } catch (error) {
+            setIsLoading(false)
+            console.log(error)
+            showAlertMessage("failed","An error occured")
+        }
+
+
     };
 
     return (
@@ -60,7 +74,7 @@ const Contact = () => {
                 <div className="flex flex-col items-start w-full gap-5 mb-10">
                     <h2 className="text-heading">Let's Talk</h2>
                     <p className="font-normal text-[#a9adbd]">
-                        Whether you're loking to build a new website, improve your existing
+                        Whether you're looking to build a new website, improve your existing
                         platform, or bring a unique project to life, I'm here to help
                     </p>
                 </div>
@@ -98,7 +112,7 @@ const Contact = () => {
                         />
                     </div>
                     <div className="mb-5">
-                        <label htmlFor="message" className="feild-label">
+                        <label htmlFor="message" className="field-label">
                             Message
                         </label>
                         <textarea
